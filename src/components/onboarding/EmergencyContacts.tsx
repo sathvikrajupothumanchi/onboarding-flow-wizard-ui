@@ -1,9 +1,5 @@
 
 import React from 'react';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { PhoneIcon, MailIcon, UserIcon } from 'lucide-react';
 
 interface EmergencyContactsProps {
@@ -13,137 +9,143 @@ interface EmergencyContactsProps {
 
 const EmergencyContacts: React.FC<EmergencyContactsProps> = ({ formData, updateFormData }) => {
   return (
-    <div className="space-y-6">
-      <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-2">Emergency Contacts</h3>
-        <p className="text-sm text-gray-600">Please provide details for two emergency contacts</p>
+    <div className="row g-4">
+      <div className="col-12">
+        <div className="mb-4">
+          <h3 className="h5 fw-semibold mb-2">Emergency Contacts</h3>
+          <p className="text-muted small">Please provide details for two emergency contacts</p>
+        </div>
       </div>
 
       {/* Emergency Contact 1 */}
-      <Card className="bg-red-50 border-red-200">
-        <CardHeader>
-          <CardTitle className="flex items-center text-red-800">
-            <UserIcon className="w-5 h-5 mr-2" />
-            Emergency Contact 1 (Primary)
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label className="text-sm font-medium">Full Name *</Label>
-              <Input placeholder="Enter contact's full name" />
-            </div>
-
-            <div className="space-y-2">
-              <Label className="text-sm font-medium">Relationship *</Label>
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select relationship" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="father">Father</SelectItem>
-                  <SelectItem value="mother">Mother</SelectItem>
-                  <SelectItem value="spouse">Spouse</SelectItem>
-                  <SelectItem value="sibling">Brother/Sister</SelectItem>
-                  <SelectItem value="friend">Friend</SelectItem>
-                  <SelectItem value="relative">Relative</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="md:col-span-2 space-y-2">
-              <Label className="text-sm font-medium">Address *</Label>
-              <Input placeholder="Enter complete address" />
-            </div>
-
-            <div className="space-y-2">
-              <Label className="text-sm font-medium">Phone Number *</Label>
-              <div className="relative">
-                <PhoneIcon className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                <Input className="pl-10" placeholder="+91 98765 43210" />
+      <div className="col-12">
+        <div className="card bg-danger bg-opacity-10 border-danger border-opacity-25">
+          <div className="card-header bg-danger bg-opacity-10">
+            <h5 className="card-title text-danger d-flex align-items-center mb-0">
+              <UserIcon size={20} className="me-2" />
+              Emergency Contact 1 (Primary)
+            </h5>
+          </div>
+          <div className="card-body">
+            <div className="row g-3">
+              <div className="col-md-6">
+                <label className="form-label fw-medium">Full Name *</label>
+                <input type="text" className="form-control" placeholder="Enter contact's full name" />
               </div>
-            </div>
 
-            <div className="space-y-2">
-              <Label className="text-sm font-medium">Email Address</Label>
-              <div className="relative">
-                <MailIcon className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                <Input className="pl-10" placeholder="contact@email.com" type="email" />
+              <div className="col-md-6">
+                <label className="form-label fw-medium">Relationship *</label>
+                <select className="form-select">
+                  <option value="">Select relationship</option>
+                  <option value="father">Father</option>
+                  <option value="mother">Mother</option>
+                  <option value="spouse">Spouse</option>
+                  <option value="sibling">Brother/Sister</option>
+                  <option value="friend">Friend</option>
+                  <option value="relative">Relative</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div className="col-12">
+                <label className="form-label fw-medium">Address *</label>
+                <input type="text" className="form-control" placeholder="Enter complete address" />
+              </div>
+
+              <div className="col-md-6">
+                <label className="form-label fw-medium">Phone Number *</label>
+                <div className="input-group">
+                  <span className="input-group-text">
+                    <PhoneIcon size={16} className="text-muted" />
+                  </span>
+                  <input type="tel" className="form-control" placeholder="+91 98765 43210" />
+                </div>
+              </div>
+
+              <div className="col-md-6">
+                <label className="form-label fw-medium">Email Address</label>
+                <div className="input-group">
+                  <span className="input-group-text">
+                    <MailIcon size={16} className="text-muted" />
+                  </span>
+                  <input type="email" className="form-control" placeholder="contact@email.com" />
+                </div>
               </div>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Emergency Contact 2 */}
-      <Card className="bg-orange-50 border-orange-200">
-        <CardHeader>
-          <CardTitle className="flex items-center text-orange-800">
-            <UserIcon className="w-5 h-5 mr-2" />
-            Emergency Contact 2 (Secondary)
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label className="text-sm font-medium">Full Name *</Label>
-              <Input placeholder="Enter contact's full name" />
-            </div>
-
-            <div className="space-y-2">
-              <Label className="text-sm font-medium">Relationship *</Label>
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select relationship" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="father">Father</SelectItem>
-                  <SelectItem value="mother">Mother</SelectItem>
-                  <SelectItem value="spouse">Spouse</SelectItem>
-                  <SelectItem value="sibling">Brother/Sister</SelectItem>
-                  <SelectItem value="friend">Friend</SelectItem>
-                  <SelectItem value="relative">Relative</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="md:col-span-2 space-y-2">
-              <Label className="text-sm font-medium">Address *</Label>
-              <Input placeholder="Enter complete address" />
-            </div>
-
-            <div className="space-y-2">
-              <Label className="text-sm font-medium">Phone Number *</Label>
-              <div className="relative">
-                <PhoneIcon className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                <Input className="pl-10" placeholder="+91 98765 43210" />
+      <div className="col-12">
+        <div className="card bg-warning bg-opacity-10 border-warning border-opacity-25">
+          <div className="card-header bg-warning bg-opacity-10">
+            <h5 className="card-title text-warning-emphasis d-flex align-items-center mb-0">
+              <UserIcon size={20} className="me-2" />
+              Emergency Contact 2 (Secondary)
+            </h5>
+          </div>
+          <div className="card-body">
+            <div className="row g-3">
+              <div className="col-md-6">
+                <label className="form-label fw-medium">Full Name *</label>
+                <input type="text" className="form-control" placeholder="Enter contact's full name" />
               </div>
-            </div>
 
-            <div className="space-y-2">
-              <Label className="text-sm font-medium">Email Address</Label>
-              <div className="relative">
-                <MailIcon className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                <Input className="pl-10" placeholder="contact@email.com" type="email" />
+              <div className="col-md-6">
+                <label className="form-label fw-medium">Relationship *</label>
+                <select className="form-select">
+                  <option value="">Select relationship</option>
+                  <option value="father">Father</option>
+                  <option value="mother">Mother</option>
+                  <option value="spouse">Spouse</option>
+                  <option value="sibling">Brother/Sister</option>
+                  <option value="friend">Friend</option>
+                  <option value="relative">Relative</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div className="col-12">
+                <label className="form-label fw-medium">Address *</label>
+                <input type="text" className="form-control" placeholder="Enter complete address" />
+              </div>
+
+              <div className="col-md-6">
+                <label className="form-label fw-medium">Phone Number *</label>
+                <div className="input-group">
+                  <span className="input-group-text">
+                    <PhoneIcon size={16} className="text-muted" />
+                  </span>
+                  <input type="tel" className="form-control" placeholder="+91 98765 43210" />
+                </div>
+              </div>
+
+              <div className="col-md-6">
+                <label className="form-label fw-medium">Email Address</label>
+                <div className="input-group">
+                  <span className="input-group-text">
+                    <MailIcon size={16} className="text-muted" />
+                  </span>
+                  <input type="email" className="form-control" placeholder="contact@email.com" />
+                </div>
               </div>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Additional Information */}
-      <Card className="bg-blue-50 border-blue-200">
-        <CardContent className="pt-6">
-          <div className="text-center text-blue-800">
-            <p className="text-sm">
+      <div className="col-12">
+        <div className="card bg-info bg-opacity-10 border-info border-opacity-25">
+          <div className="card-body text-center">
+            <p className="text-info-emphasis small mb-0">
               <strong>Note:</strong> Emergency contacts will only be contacted in case of medical emergencies 
               or critical situations. Please ensure the information provided is accurate and up-to-date.
             </p>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };

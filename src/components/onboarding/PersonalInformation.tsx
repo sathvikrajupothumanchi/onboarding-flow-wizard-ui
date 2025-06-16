@@ -1,15 +1,6 @@
 
 import React, { useState } from 'react';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Calendar } from '@/components/ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Button } from '@/components/ui/button';
 import { CalendarIcon, UploadIcon } from 'lucide-react';
-import { format } from 'date-fns';
-import { cn } from '@/lib/utils';
 
 interface PersonalInformationProps {
   formData: any;
@@ -17,7 +8,6 @@ interface PersonalInformationProps {
 }
 
 const PersonalInformation: React.FC<PersonalInformationProps> = ({ formData, updateFormData }) => {
-  const [dateOfBirth, setDateOfBirth] = useState<Date>();
   const [uploadedPhotos, setUploadedPhotos] = useState<File[]>([]);
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,192 +22,164 @@ const PersonalInformation: React.FC<PersonalInformationProps> = ({ formData, upd
   };
 
   return (
-    <div className="space-y-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Full Name */}
-        <div className="space-y-2">
-          <Label htmlFor="fullName" className="text-sm font-medium">Full Name *</Label>
-          <Input
-            id="fullName"
-            placeholder="Enter full name as per government ID"
-            className="w-full"
-          />
-        </div>
+    <div className="row g-4">
+      <div className="col-12">
+        <div className="row g-3">
+          {/* Full Name */}
+          <div className="col-md-6">
+            <label htmlFor="fullName" className="form-label fw-medium">Full Name *</label>
+            <input
+              type="text"
+              className="form-control"
+              id="fullName"
+              placeholder="Enter full name as per government ID"
+            />
+          </div>
 
-        {/* Gender */}
-        <div className="space-y-3">
-          <Label className="text-sm font-medium">Gender *</Label>
-          <RadioGroup defaultValue="male" className="flex space-x-6">
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="male" id="male" />
-              <Label htmlFor="male">Male</Label>
+          {/* Gender */}
+          <div className="col-md-6">
+            <label className="form-label fw-medium">Gender *</label>
+            <div className="d-flex gap-3 mt-2">
+              <div className="form-check">
+                <input className="form-check-input" type="radio" name="gender" id="male" value="male" defaultChecked />
+                <label className="form-check-label" htmlFor="male">Male</label>
+              </div>
+              <div className="form-check">
+                <input className="form-check-input" type="radio" name="gender" id="female" value="female" />
+                <label className="form-check-label" htmlFor="female">Female</label>
+              </div>
+              <div className="form-check">
+                <input className="form-check-input" type="radio" name="gender" id="other" value="other" />
+                <label className="form-check-label" htmlFor="other">Other</label>
+              </div>
             </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="female" id="female" />
-              <Label htmlFor="female">Female</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="other" id="other" />
-              <Label htmlFor="other">Other</Label>
-            </div>
-          </RadioGroup>
-        </div>
+          </div>
 
-        {/* Date of Birth */}
-        <div className="space-y-2">
-          <Label className="text-sm font-medium">Date of Birth *</Label>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                className={cn(
-                  "w-full justify-start text-left font-normal",
-                  !dateOfBirth && "text-muted-foreground"
-                )}
-              >
-                <CalendarIcon className="mr-2 h-4 w-4" />
-                {dateOfBirth ? format(dateOfBirth, "PPP") : "Pick a date"}
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <Calendar
-                mode="single"
-                selected={dateOfBirth}
-                onSelect={setDateOfBirth}
-                disabled={(date) =>
-                  date > new Date() || date < new Date("1900-01-01")
-                }
-                initialFocus
-                className="pointer-events-auto"
-              />
-            </PopoverContent>
-          </Popover>
-        </div>
+          {/* Date of Birth */}
+          <div className="col-md-6">
+            <label htmlFor="dateOfBirth" className="form-label fw-medium">Date of Birth *</label>
+            <input type="date" className="form-control" id="dateOfBirth" />
+          </div>
 
-        {/* Blood Group */}
-        <div className="space-y-2">
-          <Label className="text-sm font-medium">Blood Group</Label>
-          <Select>
-            <SelectTrigger>
-              <SelectValue placeholder="Select blood group" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="a+">A+</SelectItem>
-              <SelectItem value="a-">A-</SelectItem>
-              <SelectItem value="b+">B+</SelectItem>
-              <SelectItem value="b-">B-</SelectItem>
-              <SelectItem value="ab+">AB+</SelectItem>
-              <SelectItem value="ab-">AB-</SelectItem>
-              <SelectItem value="o+">O+</SelectItem>
-              <SelectItem value="o-">O-</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+          {/* Blood Group */}
+          <div className="col-md-6">
+            <label htmlFor="bloodGroup" className="form-label fw-medium">Blood Group</label>
+            <select className="form-select" id="bloodGroup">
+              <option value="">Select blood group</option>
+              <option value="a+">A+</option>
+              <option value="a-">A-</option>
+              <option value="b+">B+</option>
+              <option value="b-">B-</option>
+              <option value="ab+">AB+</option>
+              <option value="ab-">AB-</option>
+              <option value="o+">O+</option>
+              <option value="o-">O-</option>
+            </select>
+          </div>
 
-        {/* Father's Name */}
-        <div className="space-y-2">
-          <Label htmlFor="fatherName" className="text-sm font-medium">Father's Name *</Label>
-          <Input
-            id="fatherName"
-            placeholder="Enter father's name"
-            className="w-full"
-          />
-        </div>
+          {/* Father's Name */}
+          <div className="col-md-6">
+            <label htmlFor="fatherName" className="form-label fw-medium">Father's Name *</label>
+            <input
+              type="text"
+              className="form-control"
+              id="fatherName"
+              placeholder="Enter father's name"
+            />
+          </div>
 
-        {/* PAN Number */}
-        <div className="space-y-2">
-          <Label htmlFor="panNumber" className="text-sm font-medium">PAN Number *</Label>
-          <Input
-            id="panNumber"
-            placeholder="ABCDE1234F"
-            className="w-full uppercase"
-            maxLength={10}
-          />
-        </div>
+          {/* PAN Number */}
+          <div className="col-md-6">
+            <label htmlFor="panNumber" className="form-label fw-medium">PAN Number *</label>
+            <input
+              type="text"
+              className="form-control text-uppercase"
+              id="panNumber"
+              placeholder="ABCDE1234F"
+              maxLength={10}
+            />
+          </div>
 
-        {/* Nationality/Passport */}
-        <div className="space-y-2">
-          <Label htmlFor="nationality" className="text-sm font-medium">Nationality / Passport No.</Label>
-          <Input
-            id="nationality"
-            placeholder="Indian / Passport number"
-            className="w-full"
-          />
-        </div>
+          {/* Nationality/Passport */}
+          <div className="col-md-6">
+            <label htmlFor="nationality" className="form-label fw-medium">Nationality / Passport No.</label>
+            <input
+              type="text"
+              className="form-control"
+              id="nationality"
+              placeholder="Indian / Passport number"
+            />
+          </div>
 
-        {/* Marital Status */}
-        <div className="space-y-2">
-          <Label className="text-sm font-medium">Marital Status</Label>
-          <Select>
-            <SelectTrigger>
-              <SelectValue placeholder="Select marital status" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="single">Single</SelectItem>
-              <SelectItem value="married">Married</SelectItem>
-              <SelectItem value="divorced">Divorced</SelectItem>
-              <SelectItem value="widowed">Widowed</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+          {/* Marital Status */}
+          <div className="col-md-6">
+            <label htmlFor="maritalStatus" className="form-label fw-medium">Marital Status</label>
+            <select className="form-select" id="maritalStatus">
+              <option value="">Select marital status</option>
+              <option value="single">Single</option>
+              <option value="married">Married</option>
+              <option value="divorced">Divorced</option>
+              <option value="widowed">Widowed</option>
+            </select>
+          </div>
 
-        {/* Aadhaar Number */}
-        <div className="space-y-2 md:col-span-2">
-          <Label htmlFor="aadhaarNumber" className="text-sm font-medium">Aadhaar Number *</Label>
-          <Input
-            id="aadhaarNumber"
-            placeholder="1234 5678 9012"
-            className="w-full"
-            maxLength={14}
-          />
+          {/* Aadhaar Number */}
+          <div className="col-12">
+            <label htmlFor="aadhaarNumber" className="form-label fw-medium">Aadhaar Number *</label>
+            <input
+              type="text"
+              className="form-control"
+              id="aadhaarNumber"
+              placeholder="1234 5678 9012"
+              maxLength={14}
+            />
+          </div>
         </div>
       </div>
 
       {/* Photo Upload Section */}
-      <div className="space-y-4">
-        <Label className="text-sm font-medium">Passport Size Photos * (Upload 3 photos)</Label>
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-6">
-          <div className="text-center">
-            <UploadIcon className="mx-auto h-12 w-12 text-gray-400" />
-            <div className="mt-4">
-              <Label htmlFor="photo-upload" className="cursor-pointer">
-                <span className="mt-2 block text-sm font-medium text-gray-900">
-                  Click to upload photos
-                </span>
-                <span className="block text-xs text-gray-500 mt-1">
-                  PNG, JPG up to 5MB each (3 photos required)
-                </span>
-              </Label>
-              <Input
-                id="photo-upload"
-                type="file"
-                multiple
-                accept="image/*"
-                onChange={handleFileUpload}
-                className="hidden"
-              />
+      <div className="col-12">
+        <label className="form-label fw-medium">Passport Size Photos * (Upload 3 photos)</label>
+        <div className="border border-2 border-dashed rounded p-4 text-center bg-light">
+          <UploadIcon size={48} className="text-muted mb-3" />
+          <div>
+            <label htmlFor="photo-upload" className="btn btn-outline-primary cursor-pointer">
+              <span className="fw-medium">Click to upload photos</span>
+            </label>
+            <div className="text-muted small mt-2">
+              PNG, JPG up to 5MB each (3 photos required)
             </div>
+            <input
+              id="photo-upload"
+              type="file"
+              multiple
+              accept="image/*"
+              onChange={handleFileUpload}
+              className="d-none"
+            />
           </div>
         </div>
 
         {/* Uploaded Photos Preview */}
         {uploadedPhotos.length > 0 && (
-          <div className="grid grid-cols-3 gap-4">
+          <div className="row g-3 mt-3">
             {uploadedPhotos.map((photo, index) => (
-              <div key={index} className="relative">
-                <img
-                  src={URL.createObjectURL(photo)}
-                  alt={`Photo ${index + 1}`}
-                  className="w-full h-32 object-cover rounded-lg border"
-                />
-                <Button
-                  onClick={() => removePhoto(index)}
-                  variant="destructive"
-                  size="sm"
-                  className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0"
-                >
-                  ×
-                </Button>
+              <div key={index} className="col-md-4">
+                <div className="position-relative">
+                  <img
+                    src={URL.createObjectURL(photo)}
+                    alt={`Photo ${index + 1}`}
+                    className="img-fluid rounded border"
+                    style={{ height: '150px', width: '100%', objectFit: 'cover' }}
+                  />
+                  <button
+                    onClick={() => removePhoto(index)}
+                    className="btn btn-danger btn-sm position-absolute"
+                    style={{ top: '-8px', right: '-8px', width: '24px', height: '24px', padding: '0' }}
+                  >
+                    ×
+                  </button>
+                </div>
               </div>
             ))}
           </div>
